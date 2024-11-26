@@ -1,14 +1,16 @@
+import { useNavigate } from "react-router";
 import { useHomeStore } from "../../store/homStore";
 import { useModalStore } from "../../store/modalStore";
 
 export default function VideoItem(item: data) {
   const { setId, setMediaType, openModal } = useModalStore();
   const { category } = useHomeStore();
+  const navigate = useNavigate();
   return (
     <article className="flex flex-col mb-4 mx-2">
       {/* 썸네일 */}
       <div
-        className="relative inline-block group hover:scale-105 transition-transform "
+        className="relative inline-block hover:scale-105 transition-transform "
         onClick={() => {
           if (item.backdrop_path) {
             openModal();
@@ -56,7 +58,7 @@ export default function VideoItem(item: data) {
 
       {/* 하단 정보 */}
       <div className="flex flex-row pt-3">
-        {/* 인기도도 */}
+        {/* 인기도*/}
         <div className="flex items-center">
           <div className="relative w-12 h-12 mr-3">
             <div className="bg-black rounded-full w-full h-full flex items-center justify-center text-white text-sm font-bold ">
@@ -66,7 +68,10 @@ export default function VideoItem(item: data) {
         </div>
 
         {/* 비디오 정보 */}
-        <div>
+        <div
+          className="cursor-pointer"
+          onClick={() => navigate(`/datail/${item.media_type}/${item.id}`)}
+        >
           <div>
             <span className="font-bold">
               {item.title || item.name} |{" "}

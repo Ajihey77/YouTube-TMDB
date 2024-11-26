@@ -13,9 +13,7 @@ const useDataFetcher = <T>(url: string): fetchResponse<T> => {
       } catch (error) {
         console.log(error);
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
+        setLoading(false);
       }
     };
     fetchDats();

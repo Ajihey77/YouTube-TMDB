@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useModalStore } from "../../store/modalStore";
 import useDataFetcher from "../../hooks/useDataFetcher";
 import ModalDim from "../UI/ModalDim";
+import IframVIdeo from "./IframVIdeo";
 
 export default function Modal() {
-  const [isLoading, setIsLoading] = useState(true);
   const { videoId, mediaType, closeModal } = useModalStore();
   const { data, loading } = useDataFetcher<videoData>(
     `/${mediaType === "tv" ? "tv" : "movie"}/${videoId}/videos`
@@ -20,9 +20,9 @@ export default function Modal() {
   return (
     <>
       <ModalDim>
-        {loading && isLoading ? (
+        {loading ? (
           <div className="flex justify-center items-center w-full h-full">
-            <div className="w-16 h-16 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+            <div className="w-16 h-16 border-4 border-t-transparent border-black rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="relative">
@@ -33,15 +33,7 @@ export default function Modal() {
               X
             </button>
             {data?.results && data?.results.length > 0 ? (
-              <iframe
-                width="915"
-                height="515"
-                src={`https://www.youtube.com/embed/${data?.results[0].key}?autoplay=1&mute=1`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                onLoad={() => setIsLoading(false)}
-                allowFullScreen
-              ></iframe>
+              <IframVIdeo videoKey={data?.results[0].key} />
             ) : (
               <div className="relative">
                 <iframe

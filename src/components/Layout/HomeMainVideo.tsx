@@ -1,4 +1,4 @@
-import VideoItemSkeleton from "../../components/common/skeleton/VideoItemSkeleton";
+import VideoItemSkeleton from "../../components/common/skeleton/videoItemSkeleton";
 import VideoItem from "../../components/UI/VideoItem";
 import useDataFetcher from "../../hooks/useDataFetcher";
 import { useHomeStore } from "../../store/homStore";
