@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../api/axios";
 
-type fetchResponse<T> = {
-  data: T | null;
-  loading: boolean;
-};
-
 const useDataFetcher = <T>(url: string): fetchResponse<T> => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +13,9 @@ const useDataFetcher = <T>(url: string): fetchResponse<T> => {
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       }
     };
     fetchDats();
