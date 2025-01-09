@@ -19,9 +19,7 @@ export default function DetailMain() {
   if (detailLoading || videoLoading) {
     return (
       <>
-        {Array.from({ length: 6 }).map((_, index) => (
-          <DetailMainSkeleton key={index} />
-        ))}
+        <DetailMainSkeleton />
       </>
     );
   }

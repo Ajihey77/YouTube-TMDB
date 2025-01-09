@@ -70,7 +70,9 @@ export default function VideoItem(item: data) {
         {/* 비디오 정보 */}
         <div
           className="cursor-pointer"
-          onClick={() => navigate(`/datail/${item.media_type}/${item.id}`)}
+          onClick={() =>
+            navigate(`/datail/${item.media_type || category}/${item.id}`)
+          }
         >
           <div>
             <span className="font-bold">

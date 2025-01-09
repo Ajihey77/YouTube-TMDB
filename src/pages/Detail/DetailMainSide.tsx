@@ -46,14 +46,48 @@ export default function DetailMainSide({
         </div>
       </article>
       <article className="flex flex-col gap-5 mt-7">
-        {filterVideoList?.map((videoItem) => (
-          <IframVIdeo
-            videoKey={videoItem.key || ""}
-            width="315"
-            height="179"
-            key={videoItem.id}
-          />
-        ))}
+        {filterVideoList.length > 0 ? (
+          filterVideoList?.map((videoItem) => (
+            <IframVIdeo
+              videoKey={videoItem.key || ""}
+              width="315"
+              height="179"
+              key={videoItem.id}
+            />
+          ))
+        ) : (
+          <div className="relative w-[315px] h-[179px] rounded-md overflow-hidden bg-[#F2F2F2]">
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <div className="text-center">
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-16 w-16 text-gray-400"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="7" x2="12" y2="13" />
+                      <rect
+                        x="11.5"
+                        y="16"
+                        width="1"
+                        height="1"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-gray-400">
+                    동영상이 존재하지 않습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </article>
     </section>
   );

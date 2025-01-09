@@ -8,9 +8,25 @@ export default function MainContent({
   dstailItem: movieDetail | tvDetail;
   videoList: movieDetailVideoList;
 }) {
+  console.log(videoList);
   return (
     <div className="flex flex-col">
-      <IframVideo videoKey={videoList?.results[0].key || ""} />
+      {videoList?.results.length > 0 ? (
+        <IframVideo videoKey={videoList?.results[0].key || ""} />
+      ) : (
+        <div className="relative">
+          <iframe
+            width="915"
+            height="515"
+            allowFullScreen
+            className="bg-black"
+          ></iframe>
+          <div className="text-white absolute top-0 text-3xl">
+            영상이 존재하지 않습니다.
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col gap-4 my-2">
         <div>
           <span className="font-extrabold text-3xl">
@@ -50,8 +66,9 @@ export default function MainContent({
                 <td className="py-1">
                   {"runtime" in dstailItem
                     ? dstailItem.runtime
-                    : dstailItem.episode_run_time?.[0] || "정보 없음"}{" "}
-                  분
+                    : dstailItem.episode_run_time?.[0]
+                    ? `${dstailItem.episode_run_time[0]}분`
+                    : "정보없음"}
                 </td>
               </tr>
               <tr>
