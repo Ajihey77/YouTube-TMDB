@@ -4,7 +4,7 @@ import CommentContent from "./CommentContent";
 
 export default function Comment() {
   const { id } = useParams();
-  const { data, loading } = useDataFetcher<movieDetailCommentList>(
+  const { data } = useDataFetcher<movieDetailCommentList>(
     `/movie/${id}/reviews`
   );
   return (
@@ -13,7 +13,7 @@ export default function Comment() {
         댓글 {data?.results.length || 0}개
       </span>
       <div className="flex flex-col gap-4">
-        {data?.results ? (
+        {data?.results.length && data?.results.length > 0 ? (
           data?.results.map((item) => (
             <div className="flex space-x-3" key={item.id}>
               <img
