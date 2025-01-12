@@ -3,16 +3,19 @@ import useDataFetcher from "../../../hooks/useDataFetcher";
 import CommentContent from "./CommentContent";
 
 export default function Comment() {
-  const { id } = useParams();
+  const { id, category } = useParams<{
+    id: string;
+    category: "movie" | "tv";
+  }>();
   const { data } = useDataFetcher<movieDetailCommentList>(
-    `/movie/${id}/reviews`
+    `/${category}/${id}/reviews`
   );
   return (
     <>
       <span className="text-2xl font-extrabold">
         댓글 {data?.results.length || 0}개
       </span>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mb-14">
         {data?.results.length && data?.results.length > 0 ? (
           data?.results.map((item) => (
             <div className="flex space-x-3" key={item.id}>
@@ -25,7 +28,7 @@ export default function Comment() {
                 }
                 alt={`${item.author}'s avatar`}
               />
-              <div className="flex flex-col gap-1 pr-10">
+              <div className="flex flex-col gap-1 pr-10 ">
                 <div>
                   <span className="font-semibold mr-2">@{item.author}</span>
                   <span className="text-sm text-gray-500">

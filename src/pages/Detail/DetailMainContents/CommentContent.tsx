@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export default function CommentContent({ item }: { item: movieDetailComment }) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  console.log(isExpanded);
   return (
     <div className="flex flex-col items-start">
       <p className="text-sm text-gray-700">
