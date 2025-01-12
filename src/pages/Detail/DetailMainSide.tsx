@@ -24,11 +24,11 @@ export default function DetailMainSide({
             </span>
             <div className="flex flex-col mt-2 gap-2">
               <span className="text-[#848484] text-[11px] ">
-                {/* {"origin_country" in dstailItem
+                {"release_date" in dstailItem
                   ? `${dstailItem.origin_country} · ${
                       dstailItem.adult ? "어른" : "아동"
                     } · ${dstailItem.release_date}`
-                  : `${dstailItem.origin_country} · ${dstailItem.first_air_date}`} */}
+                  : `${dstailItem.origin_country} · ${dstailItem.first_air_date}`}
               </span>
               <span className="text-[#848484] text-[11px]">
                 영어 및 한국어 오디오
