@@ -23,7 +23,15 @@
     <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   </span>
 </div>
+<br><br>
+<div align=center>
+	<h3>📗 velog 📗</h3>
+</div>
+<div align="center">
+	
+[![Velog's GitHub stats](https://velog-readme-stats.vercel.app/api?name=jhey77&slug=YouTube-만들기-근데-TMDB를-곁들인-1)]([벨로그링크](https://velog.io/@jhey77))
 
+</div>
 <br><br>
 <div align=center>
 	<h3>✨ Contents ✨</h3>
