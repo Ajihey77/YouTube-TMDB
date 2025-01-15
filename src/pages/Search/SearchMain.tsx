@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 import useDataFetcher from "../../hooks/useDataFetcher";
-import VideoItem from "../../components/UI/VideoItem";
+import VideoItem from "../../components/ui/VideoItem";
 import VideoItemSkeleton from "../../components/common/skeleton/VideoItemSkeleton";
 
 export default function Search() {

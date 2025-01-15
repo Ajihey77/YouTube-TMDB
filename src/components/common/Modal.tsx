@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useModalStore } from "../../store/modalStore";
 import useDataFetcher from "../../hooks/useDataFetcher";
-import ModalDim from "../UI/ModalDim";
+import ModalDim from "../ui/ModalDim";
 import IframVIdeo from "./IframVIdeo";
 
 export default function Modal() {

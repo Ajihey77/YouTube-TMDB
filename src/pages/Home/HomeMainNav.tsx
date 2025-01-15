@@ -1,4 +1,4 @@
-import CategoryBtn from "../../components/UI/CategoryBtn";
+import CategoryBtn from "../../components/ui/CategoryBtn";
 
 export default function HomeMainNav() {
   return (

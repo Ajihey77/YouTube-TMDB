@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import useDataFetcher from "../../hooks/useDataFetcher";
 import DetailMainSide from "./DetailMainSide";
 import DetailMainSkeleton from "../../components/common/skeleton/DetailMainSkeleton";
-import MainContent from "./DetailMainContents/MainContent";
+import MainContent from "./detailMainContents/MainContent";
 
 export default function DetailMain() {
   const { id, category } = useParams<{

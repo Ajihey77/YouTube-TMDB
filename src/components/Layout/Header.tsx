@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import SearchBar from "../UI/SearchBar";
+import SearchBar from "../ui/SearchBar";
 
 export default function Header() {
   const navigate = useNavigate();
