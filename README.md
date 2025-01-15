@@ -29,7 +29,7 @@
 </div>
 <div align="center">
 	
-[![Velog's GitHub stats](https://velog-readme-stats.vercel.app/api?name=jhey77&slug=YouTube-만들기-근데-TMDB를-곁들인-1)]([벨로그링크](https://velog.io/@jhey77))
+[![Velog's GitHub stats](https://velog-readme-stats.vercel.app/api?name=jhey77&slug=YouTube-만들기-근데-TMDB를-곁들인-1)](https://velog.io/@jhey77/YouTube-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EA%B7%BC%EB%8D%B0-TMDB%EB%A5%BC-%EA%B3%81%EB%93%A4%EC%9D%B8-1)
 
 </div>
 <br><br>
