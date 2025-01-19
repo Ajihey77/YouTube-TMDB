@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type CategoryType = 'trend' | 'movie' | 'tv' | 'latest';
+type CategoryType = "trend" | "movie" | "tv";
 
 type HomeStore = {
   category: CategoryType;

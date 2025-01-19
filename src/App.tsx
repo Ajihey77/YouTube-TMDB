@@ -5,19 +5,23 @@ import Search from "./pages/search/SearchMain";
 import { useModalStore } from "./store/modalStore";
 import Modal from "./components/common/Modal";
 import DetailMain from "./pages/detail/DetailMain";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
+  const queryClient = new QueryClient();
   const { modal } = useModalStore();
   return (
     <>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomeMain />} />
-          <Route path="/datail/:category/:id" element={<DetailMain />} />
-          <Route path="search" element={<Search />} />
-        </Route>
-      </Routes>
-      {modal && <Modal />}
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomeMain />} />
+            <Route path="/datail/:category/:id" element={<DetailMain />} />
+            <Route path="search" element={<Search />} />
+          </Route>
+        </Routes>
+        {modal && <Modal />}
+      </QueryClientProvider>
     </>
   );
 }

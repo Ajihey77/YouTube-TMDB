@@ -1,7 +1,7 @@
 import { useLocation } from "react-router";
 import useDataFetcher from "../../hooks/useDataFetcher";
 import VideoItem from "../../components/ui/VideoItem";
-import VideoItemSkeleton from "../../components/common/skeleton/VideoItemSkeleton";
+import VideoItemSkeleton from "../../components/common/skeleton/videoItemSkeleton";
 
 export default function Search() {
   const { search } = useLocation();

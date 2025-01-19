@@ -14,6 +14,8 @@ type videoData = {
 };
 
 type allList = {
+  page?: number;
+  total_pages?: number;
   results: {
     backdrop_path: string;
     id: number;
