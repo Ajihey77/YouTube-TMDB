@@ -1,73 +1,102 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import VideoItemSkeleton from "../../components/common/skeleton/videoItemSkeleton";
 import VideoItem from "../../components/ui/VideoItem";
-import useDataFetcher from "../../hooks/useDataFetcher";
 import { useHomeStore } from "../../store/homStore";
 import { axiosInstance } from "../../api/axios";
+import { useEffect, useRef } from "react";
+import Loading from "../../components/common/Loading";
 
 export default function HomeMainVideo() {
+  let target = useRef(null);
+
+  const queryClient = useQueryClient();
   const { category } = useHomeStore();
 
-  // 모든 데이터를 한번에 가져오기
-  const { data: trendData, loading: trendLoading } =
-    useDataFetcher<allList>("/trending/all/day");
-
-  const { data: movieData, loading: movieLoading } = useDataFetcher<allList>(
-    "/movie/popular?page=2"
-  );
-  const { data: tvData, loading: tvLoading } =
-    useDataFetcher<allList>("/tv/popular");
-
-  const d = {
-    trend: "/trending/all/day",
+  const categoryData = {
+    trend: "/trending/all/week",
+    latest: "/trending/all/day",
     movie: "/movie/popular",
     tv: "/tv/popular",
   };
 
   const fetchTrend = async ({ pageParam = 1 }): Promise<allList> => {
     const response = await axiosInstance.get(
-      `${d[category]}?page=${pageParam}`
+      `${categoryData[category]}?page=${pageParam}`
     );
-    const data = await response.data;
-    return data;
+    return response.data;
   };
-  const {
-    data: tData,
-    error,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: [d[category]],
-    queryFn: fetchTrend,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => (lastPage.page || 0) + 1,
-  });
-  console.log(tData);
 
-  const categoryData = {
-    trend: tData?.pages,
-    movie: movieData?.results,
-    tv: tvData?.results,
-    latest: trendData?.results
-      ? [...trendData.results].sort((a, b) => {
-          const dateA = new Date(a.first_air_date || a.release_date || "");
-          const dateB = new Date(b.first_air_date || b.release_date || "");
-          return dateB.getTime() - dateA.getTime();
-        })
-      : [],
-  };
+  const { data, isLoading, error, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: [category],
+      queryFn: fetchTrend,
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => (lastPage.page || 0) + 1,
+    });
+
+  console.log(data);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        fetchNextPage();
+      }
+    });
+    if (target.current) {
+      observer.observe(target.current);
+    }
+
+    return () => {
+      if (target.current) {
+        observer.unobserve(target.current);
+      }
+    };
+  }, [fetchNextPage]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          queryClient.prefetchInfiniteQuery({
+            queryKey: ["latest"],
+            queryFn: fetchTrend,
+            initialPageParam: 1,
+            staleTime: 60000,
+          }),
+          queryClient.prefetchInfiniteQuery({
+            queryKey: ["movie"],
+            queryFn: fetchTrend,
+            initialPageParam: 1,
+            staleTime: 60000,
+          }),
+          queryClient.prefetchInfiniteQuery({
+            queryKey: ["tv"],
+            queryFn: fetchTrend,
+            initialPageParam: 1,
+            staleTime: 60000,
+          }),
+        ]);
+      } catch (error) {
+        console.error("Error prefetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <div>error</div>;
+  }
 
   return (
     <>
-      <section className="flex-1 grid grid-cols-3 gap-y-10">
-        {trendLoading || movieLoading || tvLoading
+      <section className="flex-1 grid grid-cols-3 gap-y-10 pt-16">
+        {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
               <VideoItemSkeleton key={index} />
             ))
-          : tData?.pages.map((i) =>
+          : data?.pages.map((i) =>
               i.results.map((item) => <VideoItem {...item} key={item.id} />)
             )}
-        <button onClick={() => fetchNextPage()}>Load More</button>
+        <div ref={target}>{isFetchingNextPage && <Loading />}</div>
       </section>
     </>
   );

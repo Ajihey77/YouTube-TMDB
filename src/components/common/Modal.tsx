@@ -3,13 +3,13 @@ import { useModalStore } from "../../store/modalStore";
 import useDataFetcher from "../../hooks/useDataFetcher";
 import ModalDim from "../ui/ModalDim";
 import IframVIdeo from "./IframVIdeo";
+import Loading from "./Loading";
 
 export default function Modal() {
   const { videoId, mediaType, closeModal } = useModalStore();
   const { data, loading } = useDataFetcher<videoData>(
     `/${mediaType === "tv" ? "tv" : "movie"}/${videoId}/videos`
   );
-  console.log(data?.results);
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -21,9 +21,7 @@ export default function Modal() {
     <>
       <ModalDim>
         {loading ? (
-          <div className="flex justify-center items-center w-full h-full">
-            <div className="w-16 h-16 border-4 border-t-transparent border-black rounded-full animate-spin"></div>
-          </div>
+          <Loading />
         ) : (
           <div className="relative">
             <button

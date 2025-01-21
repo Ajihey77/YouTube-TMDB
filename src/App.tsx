@@ -6,6 +6,7 @@ import { useModalStore } from "./store/modalStore";
 import Modal from "./components/common/Modal";
 import DetailMain from "./pages/detail/DetailMain";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<HomeMain />} />
