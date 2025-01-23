@@ -4,7 +4,7 @@ import SearchBar from "../ui/SearchBar";
 export default function Header() {
   const navigate = useNavigate();
   return (
-    <nav className="fixed flex justify-between gap-x-44  h-14 px-4 mx-4 bg-white z-50 w-full">
+    <nav className="fixed flex justify-between gap-x-44  h-14 px-4 mx-4 bg-white z-10 w-full">
       {/* 메뉴 로고 */}
       <div id="start" className="flex justify-items-center">
         <button className=" flex-1 bg-[url('/hamburger.svg')] bg-no-repeat bg-center aspect-square"></button>
