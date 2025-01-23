@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  * {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #515151 transparent;
+  }
+}
