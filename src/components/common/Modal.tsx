@@ -1,15 +1,22 @@
 import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useModalStore } from "../../store/modalStore";
-import useDataFetcher from "../../hooks/useDataFetcher";
+import useQueryFetcher from "../../hooks/useQueryFetcher";
 import ModalDim from "../ui/ModalDim";
 import IframVIdeo from "./IframVIdeo";
 import Loading from "./Loading";
 
 export default function Modal() {
   const { videoId, mediaType, closeModal } = useModalStore();
-  const { data, loading } = useDataFetcher<videoData>(
-    `/${mediaType === "tv" ? "tv" : "movie"}/${videoId}/videos`
-  );
+
+  const { isLoading, data } = useQuery<videoData, Error>({
+    queryKey: [mediaType, videoId],
+    queryFn: () =>
+      useQueryFetcher<videoData>(
+        `/${mediaType === "tv" ? "tv" : "movie"}/${videoId}/videos`
+      ),
+  });
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -20,7 +27,7 @@ export default function Modal() {
   return (
     <>
       <ModalDim>
-        {loading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <div className="relative">

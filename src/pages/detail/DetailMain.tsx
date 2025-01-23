@@ -1,20 +1,35 @@
 import { useParams } from "react-router";
-import useDataFetcher from "../../hooks/useDataFetcher";
+import { useQuery } from "@tanstack/react-query";
 import DetailMainSide from "./DetailMainSide";
-import DetailMainSkeleton from "../../components/common/skeleton/DetailMainSkeleton";
 import MainContent from "./detailMainContents/MainContent";
+import useQueryFetcher from "../../hooks/useQueryFetcher";
+import DetailMainSkeleton from "../../components/common/skeleton/DetailMainSkeleton";
 
 export default function DetailMain() {
+  window.scrollTo({
+    top: 0,
+  });
+
   const { id, category } = useParams<{
     id: string;
     category: "movie" | "tv";
   }>();
 
-  const { data: detailData, loading: detailLoading } = useDataFetcher<
-    movieDetail | tvDetail
-  >(`${category}/${id}`);
-  const { data: videoData, loading: videoLoading } =
-    useDataFetcher<movieDetailVideoList>(`/${category}/${id}/videos`);
+  const { isLoading: detailLoading, data: detailData } = useQuery<
+    movieDetail | tvDetail,
+    Error
+  >({
+    queryKey: [category, id],
+    queryFn: () => useQueryFetcher(`${category}/${id}`),
+  });
+
+  const { isLoading: videoLoading, data: videoData } = useQuery<
+    movieDetailVideoList,
+    Error
+  >({
+    queryKey: ["video", category, id],
+    queryFn: () => useQueryFetcher(`/${category}/${id}/videos`),
+  });
 
   if (detailLoading || videoLoading) {
     return (
@@ -24,7 +39,6 @@ export default function DetailMain() {
     );
   }
 
-  // category에 따라 데이터 타입 분기 처리
   if (category === "movie" && detailData) {
     const movieData = detailData as movieDetail;
     return (
@@ -45,6 +59,5 @@ export default function DetailMain() {
     );
   }
 
-  // 기본 fallback 처리
   return <div>Error: 데이터를 불러오지 못했습니다.</div>;
 }

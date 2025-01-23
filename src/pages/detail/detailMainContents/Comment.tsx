@@ -1,15 +1,18 @@
 import { useParams } from "react-router";
-import useDataFetcher from "../../../hooks/useDataFetcher";
+import { useQuery } from "@tanstack/react-query";
 import CommentContent from "./CommentContent";
+import useQueryFetcher from "../../../hooks/useQueryFetcher";
 
 export default function Comment() {
   const { id, category } = useParams<{
     id: string;
     category: "movie" | "tv";
   }>();
-  const { data } = useDataFetcher<movieDetailCommentList>(
-    `/${category}/${id}/reviews`
-  );
+
+  const { isLoading, data } = useQuery<movieDetailCommentList, Error>({
+    queryKey: [category, id, "reviews"],
+    queryFn: () => useQueryFetcher(`/${category}/${id}/reviews`),
+  });
   return (
     <>
       <span className="text-2xl font-extrabold">

@@ -1,15 +1,14 @@
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import VideoItemSkeleton from "../../components/common/skeleton/videoItemSkeleton";
-import VideoItem from "../../components/ui/VideoItem";
-import { useHomeStore } from "../../store/homStore";
 import { axiosInstance } from "../../api/axios";
 import { useEffect, useRef } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useHomeStore } from "../../store/homStore";
 import Loading from "../../components/common/Loading";
+import VideoItem from "../../components/ui/VideoItem";
+import VideoItemSkeleton from "../../components/common/skeleton/videoItemSkeleton";
 
 export default function HomeMainVideo() {
   let target = useRef(null);
 
-  const queryClient = useQueryClient();
   const { category } = useHomeStore();
 
   const categoryData = {
@@ -34,7 +33,6 @@ export default function HomeMainVideo() {
       getNextPageParam: (lastPage) => (lastPage.page || 0) + 1,
     });
 
-  console.log(data);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
@@ -52,36 +50,6 @@ export default function HomeMainVideo() {
     };
   }, [fetchNextPage]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await Promise.all([
-          queryClient.prefetchInfiniteQuery({
-            queryKey: ["latest"],
-            queryFn: fetchTrend,
-            initialPageParam: 1,
-            staleTime: 60000,
-          }),
-          queryClient.prefetchInfiniteQuery({
-            queryKey: ["movie"],
-            queryFn: fetchTrend,
-            initialPageParam: 1,
-            staleTime: 60000,
-          }),
-          queryClient.prefetchInfiniteQuery({
-            queryKey: ["tv"],
-            queryFn: fetchTrend,
-            initialPageParam: 1,
-            staleTime: 60000,
-          }),
-        ]);
-      } catch (error) {
-        console.error("Error prefetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
   if (error) {
     return <div>error</div>;
   }
@@ -96,7 +64,8 @@ export default function HomeMainVideo() {
           : data?.pages.map((i) =>
               i.results.map((item) => <VideoItem {...item} key={item.id} />)
             )}
-        <div ref={target}>{isFetchingNextPage && <Loading />}</div>
+        {isFetchingNextPage && <Loading />}
+        <div ref={target} className="w-1 h-1"></div>
       </section>
     </>
   );
