@@ -1,5 +1,5 @@
 import { axiosInstance } from "../../api/axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useHomeStore } from "../../store/homStore";
 import Loading from "../../components/common/Loading";
@@ -18,20 +18,25 @@ export default function HomeMainVideo() {
     tv: "/tv/popular",
   };
 
-  const fetchTrend = async ({ pageParam = 1 }): Promise<allList> => {
+  const fetchTrend = async ({ pageParam = 1 }) => {
     const response = await axiosInstance.get(
       `${categoryData[category]}?page=${pageParam}`
     );
     return response.data;
   };
 
-  const { data, isLoading, error, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: [category],
-      queryFn: fetchTrend,
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => (lastPage.page || 0) + 1,
-    });
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
+    allList,
+    Error,
+    result,
+    [string],
+    number
+  >({
+    queryKey: [category],
+    queryFn: fetchTrend,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => (lastPage.page || 0) + 1,
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -50,19 +55,23 @@ export default function HomeMainVideo() {
     };
   }, [fetchNextPage]);
 
-  if (error) {
-    return <div>error</div>;
-  }
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    setShowSkeleton(true);
+    const timer = setTimeout(() => setShowSkeleton(false), 300);
+    return () => clearTimeout(timer);
+  }, [category]);
 
   return (
     <>
       <section className="flex-1 grid grid-cols-3 gap-y-10 pt-16">
-        {isLoading
+        {showSkeleton
           ? Array.from({ length: 6 }).map((_, index) => (
               <VideoItemSkeleton key={index} />
             ))
-          : data?.pages.map((i) =>
-              i.results.map((item) => <VideoItem {...item} key={item.id} />)
+          : data?.pages.map((data) =>
+              data.results.map((item) => <VideoItem {...item} key={item.id} />)
             )}
         {isFetchingNextPage && <Loading />}
         <div ref={target} className="w-1 h-1"></div>

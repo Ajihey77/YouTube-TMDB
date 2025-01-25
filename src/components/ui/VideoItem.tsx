@@ -24,6 +24,7 @@ export default function VideoItem(item: data) {
         {/* 이미지 */}
         <img
           className="rounded-xl w-full h-auto aspect-video object-cover"
+          loading="lazy"
           src={
             item.poster_path
               ? `https://image.tmdb.org/t/p/w500${

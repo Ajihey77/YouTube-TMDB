@@ -2,7 +2,7 @@ export default function videoItemSkeleton() {
   return (
     <article className="flex flex-col mb-4 mx-2 animate-pulse">
       {/* 썸네일 */}
-      <div className="relative w-full h-40 bg-gray-300 rounded-xl"></div>
+      <div className="relative w-full h-56 bg-gray-300 rounded-xl"></div>
 
       {/* 하단 정보 */}
       <div className="flex flex-row pt-3">
@@ -15,11 +15,6 @@ export default function videoItemSkeleton() {
         <div className="flex-1 space-y-2">
           <div className="h-4 bg-gray-300 rounded w-3/4"></div>
           <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-        </div>
-
-        {/* 점 버튼 */}
-        <div className="ml-auto">
-          <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
         </div>
       </div>
     </article>
