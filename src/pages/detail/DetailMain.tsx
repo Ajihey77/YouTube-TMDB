@@ -1,10 +1,9 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import DetailMainSide from "./DetailMainSide";
-import MainContent from "./detailMainContents/MainContent";
+import DetailMainContent from "./DetailMainContent";
 import useQueryFetcher from "../../hooks/useQueryFetcher";
 import DetailMainSkeleton from "../../components/common/skeleton/DetailMainSkeleton";
-
 export default function DetailMain() {
   window.scrollTo({
     top: 0,
@@ -43,8 +42,8 @@ export default function DetailMain() {
     const movieData = detailData as movieDetail;
     return (
       <div className="flex w-full mt-8">
-        <MainContent dstailItem={movieData} videoList={videoData!} />
-        <DetailMainSide dstailItem={movieData} videoList={videoData!} />
+        <DetailMainContent dstailItem={movieData} videoList={videoData!} />
+        <DetailMainSide dstailItem={movieData} />
       </div>
     );
   }
@@ -53,11 +52,9 @@ export default function DetailMain() {
     const tvData = detailData as tvDetail;
     return (
       <div className="flex w-full mt-8">
-        <MainContent dstailItem={tvData} videoList={videoData!} />
-        <DetailMainSide dstailItem={tvData} videoList={videoData!} />
+        <DetailMainContent dstailItem={tvData} videoList={videoData!} />
+        <DetailMainSide dstailItem={tvData} />
       </div>
     );
   }
-
-  return <div>Error: 데이터를 불러오지 못했습니다.</div>;
 }

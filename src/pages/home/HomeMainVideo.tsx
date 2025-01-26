@@ -8,9 +8,8 @@ import VideoItemSkeleton from "../../components/common/skeleton/videoItemSkeleto
 
 export default function HomeMainVideo() {
   let target = useRef(null);
-
   const { category } = useHomeStore();
-
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const categoryData = {
     trend: "/trending/all/week",
     latest: "/trending/all/day",
@@ -54,8 +53,6 @@ export default function HomeMainVideo() {
       }
     };
   }, [fetchNextPage]);
-
-  const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
     setShowSkeleton(true);
