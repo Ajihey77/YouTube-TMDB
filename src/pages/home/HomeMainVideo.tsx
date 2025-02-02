@@ -25,9 +25,9 @@ export default function HomeMainVideo() {
   };
 
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
-    allList,
+    homeMainList,
     Error,
-    result,
+    homeMainResult,
     [string],
     number
   >({

@@ -7,7 +7,7 @@ export default function MainContent({
   videoList,
 }: {
   dstailItem: movieDetail | tvDetail;
-  videoList: movieDetailVideoList;
+  videoList: videoData;
 }) {
   return (
     <div className="flex flex-col">

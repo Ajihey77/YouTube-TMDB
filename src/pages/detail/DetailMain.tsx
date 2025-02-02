@@ -23,17 +23,17 @@ export default function DetailMain() {
   });
 
   const { isLoading: videoLoading, data: videoData } = useQuery<
-    movieDetailVideoList,
+    videoData,
     Error
   >({
     queryKey: ["video", category, id],
     queryFn: () => useQueryFetcher(`/${category}/${id}/videos`),
   });
 
-  function isCategory<T extends keyof DetailMap>(
+  function isCategory<T extends keyof detailMap>(
     category: string,
     detailData: unknown
-  ): detailData is DetailMap[T] {
+  ): detailData is detailMap[T] {
     return category === "movie" || category === "tv";
   }
 
