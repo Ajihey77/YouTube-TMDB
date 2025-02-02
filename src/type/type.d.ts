@@ -1,3 +1,8 @@
+type DetailMap = {
+  movie: movieDetail;
+  tv: tvDetail;
+};
+
 type videoData = {
   results: {
     iso_639_1: string;

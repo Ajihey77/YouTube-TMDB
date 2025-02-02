@@ -30,6 +30,13 @@ export default function DetailMain() {
     queryFn: () => useQueryFetcher(`/${category}/${id}/videos`),
   });
 
+  function isCategory<T extends keyof DetailMap>(
+    category: string,
+    detailData: unknown
+  ): detailData is DetailMap[T] {
+    return category === "movie" || category === "tv";
+  }
+
   if (detailLoading || videoLoading) {
     return (
       <>
@@ -38,23 +45,32 @@ export default function DetailMain() {
     );
   }
 
-  if (category === "movie" && detailData) {
-    const movieData = detailData as movieDetail;
+  if (isCategory(category!, detailData)) {
     return (
       <div className="flex w-full mt-8">
-        <DetailMainContent dstailItem={movieData} videoList={videoData!} />
-        <DetailMainSide dstailItem={movieData} />
+        <DetailMainContent dstailItem={detailData} videoList={videoData!} />
+        <DetailMainSide dstailItem={detailData} />
       </div>
     );
   }
 
-  if (category === "tv" && detailData) {
-    const tvData = detailData as tvDetail;
-    return (
-      <div className="flex w-full mt-8">
-        <DetailMainContent dstailItem={tvData} videoList={videoData!} />
-        <DetailMainSide dstailItem={tvData} />
-      </div>
-    );
-  }
+  // if (category === "movie" && detailData) {
+  //   const movieData = detailData as movieDetail;
+  //   return (
+  //     <div className="flex w-full mt-8">
+  //       <DetailMainContent dstailItem={movieData} videoList={videoData!} />
+  //       <DetailMainSide dstailItem={movieData} />
+  //     </div>
+  //   );
+  // }
+
+  // if (category === "tv" && detailData) {
+  //   const tvData = detailData as tvDetail;
+  //   return (
+  //     <div className="flex w-full mt-8">
+  //       <DetailMainContent dstailItem={tvData} videoList={videoData!} />
+  //       <DetailMainSide dstailItem={tvData} />
+  //     </div>
+  //   );
+  // }
 }
