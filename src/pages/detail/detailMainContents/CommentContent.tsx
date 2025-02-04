@@ -2,15 +2,19 @@ import { useState } from "react";
 
 export default function CommentContent({ item }: { item: movieDetailComment }) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const expanded = (() => {
+    if (isExpanded) return item.content;
+    if (!isExpanded && item.content.length > 200)
+      return item.content.substring(0, 200) + "...";
+    else {
+      return item.content;
+    }
+  })();
+
   return (
     <div className="flex flex-col items-start">
-      <p className="text-sm text-gray-700">
-        {isExpanded
-          ? item.content
-          : item.content.length > 200
-          ? item.content.substring(0, 200) + "..."
-          : item.content}
-      </p>
+      <p className="text-sm text-gray-700">{expanded}</p>
       {item.content.length > 200 && (
         <button
           id={item.id}
