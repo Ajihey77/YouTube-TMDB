@@ -38,11 +38,7 @@ export default function DetailMain() {
   }
 
   if (detailLoading || videoLoading) {
-    return (
-      <>
-        <DetailMainSkeleton />
-      </>
-    );
+    return <DetailMainSkeleton />;
   }
 
   if (isCategory(category!, detailData)) {
@@ -53,24 +49,4 @@ export default function DetailMain() {
       </div>
     );
   }
-
-  // if (category === "movie" && detailData) {
-  //   const movieData = detailData as movieDetail;
-  //   return (
-  //     <div className="flex w-full mt-8">
-  //       <DetailMainContent dstailItem={movieData} videoList={videoData!} />
-  //       <DetailMainSide dstailItem={movieData} />
-  //     </div>
-  //   );
-  // }
-
-  // if (category === "tv" && detailData) {
-  //   const tvData = detailData as tvDetail;
-  //   return (
-  //     <div className="flex w-full mt-8">
-  //       <DetailMainContent dstailItem={tvData} videoList={videoData!} />
-  //       <DetailMainSide dstailItem={tvData} />
-  //     </div>
-  //   );
-  // }
 }
