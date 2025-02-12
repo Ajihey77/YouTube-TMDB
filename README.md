@@ -18,13 +18,6 @@
    <span style="display: inline-block;">
     <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
   </span>
-    <br>
-  <span style="display: inline-block;">
-    <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-  </span>
-  <span style="display: inline-block;">
-    <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-  </span>
 </div>
 <br><br>
 <div align=center>
