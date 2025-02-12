@@ -9,7 +9,7 @@ export default function Search() {
   const params = new URLSearchParams(search);
   const query = params.get("results");
 
-  const { isLoading, data } = useQuery<allList, Error>({
+  const { isLoading, data } = useQuery<homeMainList, Error>({
     queryKey: [search],
     queryFn: () => useQueryFetcher(`/search/multi?query=${query}`),
   });

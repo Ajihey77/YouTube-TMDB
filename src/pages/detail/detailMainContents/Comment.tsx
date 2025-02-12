@@ -9,7 +9,7 @@ export default function Comment() {
     category: "movie" | "tv";
   }>();
 
-  const { isLoading, data } = useQuery<movieDetailCommentList, Error>({
+  const { data } = useQuery<movieDetailCommentList, Error>({
     queryKey: [category, id, "reviews"],
     queryFn: () => useQueryFetcher(`/${category}/${id}/reviews`),
   });

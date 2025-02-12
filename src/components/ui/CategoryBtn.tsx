@@ -4,7 +4,7 @@ export default function CategoryBtn({
   children,
   categoryData,
 }: {
-  categoryData: string;
+  categoryData: "trend" | "movie" | "tv" | "latest";
   children: string;
 }) {
   const { setCategory, category } = useHomeStore();

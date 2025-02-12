@@ -34,6 +34,7 @@ export default function DetailMain() {
     category: string,
     detailData: unknown
   ): detailData is detailMap[T] {
+    if (!detailData) return false;
     return category === "movie" || category === "tv";
   }
 

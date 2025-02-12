@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useHomeStore } from "../../store/homStore";
 import { useModalStore } from "../../store/modalStore";
 
-export default function VideoItem(item: data) {
+export default function VideoItem(item: homeMain) {
   const { setId, setMediaType, openModal } = useModalStore();
   const { category } = useHomeStore();
   const navigate = useNavigate();
